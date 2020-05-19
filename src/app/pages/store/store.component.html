@@ -1,0 +1,67 @@
+<div class="d-flex justify-content-center">
+  <div class="col-10 pt-4 pb-4 mt-4" style="background-color: lightgrey;">
+    <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="name" class="label"> Nombre dela tienda </label>
+            <input formControlName="name" id="name" type="text"
+              placeholder="" aria-required="true" class="form-control" required>
+            <div *ngIf="submitted && f.name.errors">
+              <div *ngIf="f.name.errors.required">
+                <small tabindex="-1" class="form-text text-danger">
+                  Campo obligatorio
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="address" class="label"> Dirección de la tienda </label>
+            <input formControlName="address" id="address" type="text" placeholder=""
+              class="form-control">
+            <div *ngIf="submitted && f.address.errors">
+              <div *ngIf="f.address.errors.required">
+                <small tabindex="-1" class="form-text text-danger">
+                  Campo obligatorio
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="phone" class="label"> Teléfono de la tienda </label>
+            <input formControlName="phone" id="phone" type="text" placeholder=""
+              class="form-control">
+            <div *ngIf="submitted && f.phone.errors">
+              <div *ngIf="f.phone.errors.required">
+                <small tabindex="-1" class="form-text text-danger">
+                  Campo obligatorio
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="email" class="label"> Email </label>
+            <input id="email" type="email" formControlName="email" placeholder=""
+              aria-required="true" class="form-control">
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-around">
+        <button type="button" class="btn btn-danger">cancelar</button>
+        <button type="submit" class="btn btn-outline-success">Enviar</button>
+      </div>
+
+    </form> <!-- End Form -->
+  </div>
+</div>
