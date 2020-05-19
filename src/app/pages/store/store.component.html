@@ -1,13 +1,23 @@
-<div class="d-flex justify-content-center">
-  <div class="col-10 pt-4 pb-4 mt-4" style="background-color: lightgrey;">
-    <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+<!-- <div class="row justify-content-center align-items-center" id="body-store">
+
+  <div class="spinner-grow text-primary loading" role="status" *ngIf="loading" style="width: 3rem; height: 3rem;">
+    <span class="sr-only">Loading...</span>
+  </div>
+
+  <div class="col-10 text-center">
+    <h3>Formulario para agregar nueva tienda</h3>
+  </div>
+
+  <div class="col-10" style="background-color: lightgrey;">
+
+    <form [formGroup]="storeForm" (ngSubmit)="onSubmit()">
 
       <div class="row">
         <div class="col-sm-6">
           <div class="form-group">
             <label for="name" class="label"> Nombre dela tienda </label>
-            <input formControlName="name" id="name" type="text"
-              placeholder="" aria-required="true" class="form-control" required>
+            <input formControlName="name" id="name" type="text" placeholder="" aria-required="true" class="form-control"
+              required>
             <div *ngIf="submitted && f.name.errors">
               <div *ngIf="f.name.errors.required">
                 <small tabindex="-1" class="form-text text-danger">
@@ -20,8 +30,7 @@
         <div class="col-sm-6">
           <div class="form-group">
             <label for="address" class="label"> Dirección de la tienda </label>
-            <input formControlName="address" id="address" type="text" placeholder=""
-              class="form-control">
+            <input formControlName="address" id="address" type="text" placeholder="" class="form-control">
             <div *ngIf="submitted && f.address.errors">
               <div *ngIf="f.address.errors.required">
                 <small tabindex="-1" class="form-text text-danger">
@@ -37,8 +46,7 @@
         <div class="col-sm-6">
           <div class="form-group">
             <label for="phone" class="label"> Teléfono de la tienda </label>
-            <input formControlName="phone" id="phone" type="text" placeholder=""
-              class="form-control">
+            <input formControlName="phone" id="phone" type="text" placeholder="" class="form-control">
             <div *ngIf="submitted && f.phone.errors">
               <div *ngIf="f.phone.errors.required">
                 <small tabindex="-1" class="form-text text-danger">
@@ -51,9 +59,22 @@
         <div class="col-sm-6">
           <div class="form-group">
             <label for="email" class="label"> Email </label>
-            <input id="email" type="email" formControlName="email" placeholder=""
-              aria-required="true" class="form-control">
+            <input id="email" type="email" formControlName="email" placeholder="" aria-required="true"
+              class="form-control">
           </div>
+          <div *ngIf="submitted && f.email.errors">
+            <div *ngIf="f.email.errors.email">
+              <small tabindex="-1" class="form-text text-danger">
+                EL correo debe tener un formato valido
+              </small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <input type="file" name="pictures" (change)="onLoadimages($event.target.files)" multiple>
         </div>
       </div>
 
@@ -62,6 +83,104 @@
         <button type="submit" class="btn btn-outline-success">Enviar</button>
       </div>
 
-    </form> <!-- End Form -->
+    </form>
   </div>
+
+</div> -->
+
+<div class="flex-column">
+
+  <div class="spinner-grow text-primary loading" role="status" style="width: 3rem; height: 3rem;" *ngIf="loaging">
+    <span class="sr-only">Loading...</span>
+  </div>
+
+  <div class="col text-center pt-4 pb-4">
+    <h3>Agrear nueva tienda</h3>
+  </div>
+
+  <div class="col" id="form">
+
+    <form [formGroup]="storeForm" (ngSubmit)="onSubmit()">
+
+      <div class="d-flex flex-row pt-4">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="name" class="label"> Nombre dela tienda </label>
+            <input formControlName="name" id="name" type="text" placeholder="" aria-required="true" class="form-control"
+              required>
+            <div *ngIf="submitted && f.name.errors">
+              <div *ngIf="f.name.errors.required">
+                <small tabindex="-1" class="form-text text-danger">
+                  Campo obligatorio
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="address" class="label"> Dirección de la tienda </label>
+            <input formControlName="address" id="address" type="text" placeholder="" class="form-control">
+            <div *ngIf="submitted && f.address.errors">
+              <div *ngIf="f.address.errors.required">
+                <small tabindex="-1" class="form-text text-danger">
+                  Campo obligatorio
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex flex-row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="phone" class="label"> Teléfono de la tienda </label>
+            <input formControlName="phone" id="phone" type="text" placeholder="" class="form-control">
+            <div *ngIf="submitted && f.phone.errors">
+              <div *ngIf="f.phone.errors.required">
+                <small tabindex="-1" class="form-text text-danger">
+                  Campo obligatorio
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="email" class="label"> Email </label>
+            <input id="email" type="email" formControlName="email" placeholder="" aria-required="true"
+              class="form-control">
+          </div>
+          <div *ngIf="submitted && f.email.errors">
+            <div *ngIf="f.email.errors.email">
+              <small tabindex="-1" class="form-text text-danger">
+                EL correo debe tener un formato valido
+              </small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex flex-row">
+        <div class="col">
+          <input type="file" name="pictures" (change)="onLoadimages($event.target.files)" multiple>
+        </div>
+      </div>
+
+      <div class="d-flex flex-row justify-content-around pt-4 pb-4">
+        <button type="button" class="btn btn-danger" (click)="clearForm()">Cancelar</button>
+        <button type="submit" class="btn btn-outline-primary">Enviar</button>
+      </div>
+
+    </form>
+  </div>
+
+  <div class="alert alert-warning alert-dismissible fade show mt-4" role="alert" *ngIf="warning">
+    <strong>Demasiadas imagenes!</strong> Solo puedes agregar un máximo de 3 imagenes
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
 </div>

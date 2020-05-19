@@ -1,1 +1,30 @@
-<p>home works!</p>
+<div class="flex-column">
+
+  <div class="spinner-grow text-primary loading" role="status" *ngIf="loading" style="width: 3rem; height: 3rem;">
+    <span class="sr-only">Loading...</span>
+  </div>
+
+  <div class="col text-center pt-4 pb-4">
+    <h3>Prueba técnica</h3>
+  </div>
+
+    <table class="table table-striped table-inverse" *ngIf="stores.length > 0">
+      <thead class="thead-inverse">
+        <tr>
+          <th>Nombre</th>
+          <th>Teléfono</th>
+          <th>Email</th>
+          <th>Dirección</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let store of stores">
+          <td>{{store.name}}</td>
+          <td>{{ store.phone }}</td>
+          <td>{{ store.email }}</td>
+          <td>{{ store.address }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+</div>

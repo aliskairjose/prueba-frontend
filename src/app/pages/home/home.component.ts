@@ -12,22 +12,25 @@ import { map } from 'rxjs/operators';
 export class HomeComponent implements OnInit {
 
   stores: Store[];
+  loading: boolean;
 
   constructor(
     private api: ApiService,
   ) { }
 
   ngOnInit() {
-    console.log('on init');
-
+    this.loading = false;
     this.loadData();
 
   }
 
   private loadData(): void {
-
+    this.loading = true;
     this.api.get('stores').subscribe( (response: BusinessResult) => {
-      console.log(response);
+      if (response.isSuccess) {
+        this.loading = false;
+        this.stores = response.objects;
+      }
     });
   }
 

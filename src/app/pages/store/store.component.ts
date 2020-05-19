@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { BusinessResult } from '../../models/business-result';
 import { map } from 'rxjs/operators';
+import { Store } from '../../models/store';
 
 @Component( {
   selector: 'app-store',
@@ -11,9 +12,12 @@ import { map } from 'rxjs/operators';
   styleUrls: [ './store.component.scss' ]
 } )
 export class StoreComponent implements OnInit {
-  loading = true;
-  submitted = false;
-  editForm: FormGroup;
+  loading: boolean;
+  submitted: boolean;
+  warning: boolean;
+  storeForm: FormGroup;
+  filesCount: number;
+  formData = new FormData();
 
   constructor(
     private router: Router,
@@ -25,40 +29,77 @@ export class StoreComponent implements OnInit {
 
   ngOnInit() {
     this.loading = false;
+    this.warning = false;
 
   }
 
   // convenience getter for easy access to form fields
   // tslint:disable-next-line: typedef
-  get f() { return this.editForm.controls; }
+  get f() { return this.storeForm.controls; }
+
+  clearForm(): void {
+    this.storeForm.reset();
+  }
 
   onSubmit(): void {
 
     this.submitted = true;
 
-    if ( this.editForm.valid ) {
+    if ( this.filesCount > 3 ) {
+      this.warning = true;
+      setTimeout( () => {
+        this.warning = false;
+      }, 2000 );
+      return;
+    }
+
+    if ( this.storeForm.valid ) {
       this.loading = true;
-      this.save( this.editForm.value );
+      this.save( this.storeForm.value );
+    }
+
+  }
+
+  onLoadimages( files: FileList ): void {
+    this.warning = false;
+    if ( files.length > 3 ) {
+      this.warning = true;
+      this.filesCount = files.length;
+    }
+
+    for ( const key in files ) {
+      if ( files.hasOwnProperty( key ) ) {
+        const file = files[ key ];
+        this.formData.append( `picture_${key}`, file, file.name );
+      }
     }
 
   }
 
   private createForm(): void {
-    this.editForm = this.formBuilder.group( {
+    this.storeForm = this.formBuilder.group( {
       name: [ '', [ Validators.required ] ],
       phone: [ '', [ Validators.required ] ],
       address: [ '', [ Validators.required ] ],
-      email: [ '', [] ]
+      email: [ '', [ Validators.email ] ]
     } );
   }
 
-  private save( params: any ): void {
-    this.api.post( 'store', params ).pipe( map( ( response: BusinessResult ) => {
-      if ( response.isSuccess ) {
-        console.log( response.objects );
+  private save( params: Store ): void {
+    for ( const key in params ) {
+      if ( params.hasOwnProperty( key ) ) {
+        const element = params[ key ];
+        this.formData.append( key, element );
       }
-    } )
-    );
+    }
+
+    this.api.post( 'stores', this.formData ).subscribe( ( response: BusinessResult ) => {
+      if ( response.isSuccess ) {
+        this.loading = false;
+        // this.router.navigateByUrl('/home');
+        // this.;
+      }
+    } );
   }
 
 }
