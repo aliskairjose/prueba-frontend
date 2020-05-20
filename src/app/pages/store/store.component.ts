@@ -62,6 +62,7 @@ export class StoreComponent implements OnInit {
 
   onLoadimages( files: FileList ): void {
     this.warning = false;
+
     if ( files.length > 3 ) {
       this.warning = true;
       this.filesCount = files.length;
@@ -86,6 +87,7 @@ export class StoreComponent implements OnInit {
   }
 
   private save( params: Store ): void {
+
     for ( const key in params ) {
       if ( params.hasOwnProperty( key ) ) {
         const element = params[ key ];
@@ -96,8 +98,7 @@ export class StoreComponent implements OnInit {
     this.api.post( 'stores', this.formData ).subscribe( ( response: BusinessResult ) => {
       if ( response.isSuccess ) {
         this.loading = false;
-        // this.router.navigateByUrl('/home');
-        // this.;
+        this.router.navigateByUrl('/home');
       }
     } );
   }

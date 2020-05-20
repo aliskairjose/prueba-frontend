@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  baseUrl:  'http://localhost/store_backend/public/api/'
+  baseUrl:  'http://localhost/store_backend/public/api/',
+  imgUrl:  'http://localhost/store_backend/public/storage/'
 };
 
 /*

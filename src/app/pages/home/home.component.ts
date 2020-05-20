@@ -3,6 +3,7 @@ import { ApiService } from '../../services/api.service';
 import { Store } from 'src/app/models/store';
 import { BusinessResult } from '../../models/business-result';
 import { map } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 
 @Component( {
   selector: 'app-home',
@@ -11,8 +12,9 @@ import { map } from 'rxjs/operators';
 } )
 export class HomeComponent implements OnInit {
 
-  stores: Store[];
+  stores: Store[] = [];
   loading: boolean;
+  imgUrl = environment.imgUrl;
 
   constructor(
     private api: ApiService,
@@ -28,6 +30,7 @@ export class HomeComponent implements OnInit {
     this.loading = true;
     this.api.get('stores').subscribe( (response: BusinessResult) => {
       if (response.isSuccess) {
+        console.log(response.objects);
         this.loading = false;
         this.stores = response.objects;
       }

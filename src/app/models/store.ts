@@ -2,7 +2,7 @@ export class Store {
   constructor(
     id: number,
     name: string,
-    phone: number,
+    phone: string,
     email: string,
     address: string,
   ) {  }
